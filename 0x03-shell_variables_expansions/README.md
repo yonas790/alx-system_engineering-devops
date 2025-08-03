@@ -5,3 +5,4 @@
 ### 4. Global variables
 ### 5. Local variables
 ### 6. Create local variables
+### 7. Create global variables
