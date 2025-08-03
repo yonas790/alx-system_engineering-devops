@@ -7,3 +7,4 @@
 ### 6. Create local variables
 ### 7. Create global variables
 ### 8. Every addition to true knowledge is an addition to human power
+### 9. Divide and rule
