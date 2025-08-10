@@ -1,55 +1,43 @@
-
----
-### https://imgur.com/a/wkTC42B
+https://imgur.com/a/wkTC42B
 
 Explanation of Additional Elements and Their Roles
 
-* Firewalls (3 total):
+- Firewalls (3 total):
   Protect each server by controlling inbound and outbound traffic, blocking unauthorized access and potential attacks.
 
-* SSL Certificate:
+- SSL Certificate:
   Enables HTTPS to encrypt traffic between users and the server, protecting data from interception and tampering.
 
-* Monitoring Clients (3 total):
+- Monitoring Clients (3 total):
   Collect metrics and logs from each server and send data to centralized monitoring services like SumoLogic for real-time analysis and alerting.
-
----
 
 Why These Elements?
 
-* Firewalls:
+- Firewalls:
   Essential to secure servers from unwanted or malicious network traffic.
 
-* HTTPS (SSL):
+- HTTPS (SSL):
   Provides confidentiality and integrity for data exchanged over the internet, increasing user trust and meeting security best practices.
 
-* Monitoring:
+- Monitoring:
   Enables detection of performance issues, errors, and security breaches by continuously tracking server health, traffic, and application behavior.
-
----
 
 How Monitoring Works
 
-* Monitoring clients run on each server, collecting data such as CPU usage, memory, logs, and request rates.
-* These clients send the data to a centralized monitoring platform (e.g., SumoLogic) for aggregation, visualization, and alerting.
-* To monitor web server QPS (Queries Per Second), configure monitoring tools to track the web server’s access logs or metrics endpoints that expose request counts.
-
----
+- Monitoring clients run on each server, collecting data such as CPU usage, memory, logs, and request rates.
+- These clients send the data to a centralized monitoring platform (e.g., SumoLogic) for aggregation, visualization, and alerting.
+- To monitor web server QPS (Queries Per Second), configure monitoring tools to track the web server’s access logs or metrics endpoints that expose request counts.
 
 Issues with This Infrastructure
 
-* Terminating SSL at Load Balancer:
+- Terminating SSL at Load Balancer:
   The decrypted traffic inside the network may be exposed if the internal network is not secure, increasing risk.
 
-* Single MySQL Server for Writes:
+- Single MySQL Server for Writes:
   The primary database node is a bottleneck and a SPOF; if it fails, write operations stop and the system cannot update data.
 
-* Servers with All Components:
+- Servers with All Components:
   Having database, web server, and application server on the same machines reduces modularity and scalability, complicates maintenance, and increases risk of resource contention.
-
----
-
-Summary
 
 This architecture improves security through firewalls and encrypted traffic, adds monitoring for reliability, but still needs enhancements in database redundancy, SSL termination security, and component separation for production readiness.
 
