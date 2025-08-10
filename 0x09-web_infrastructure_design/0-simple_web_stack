@@ -1,0 +1,48 @@
+
+---
+### https://imgur.com/a/XfUdTD6
+
+## How it Works Step-by-Step
+
+1. **User visits** `www.foobar.com` in their browser.  
+   - Browser asks DNS: *“What is the IP address for www.foobar.com?”*
+
+2. **DNS translates** `www.foobar.com` to the server IP `8.8.8.8`.  
+   - The **www** is an **A record** pointing to `8.8.8.8`.
+
+3. **Browser sends HTTP request** to IP `8.8.8.8`.  
+   - The request arrives at the **Nginx web server**.
+
+4. **Nginx web server** handles the request:  
+   - Serves static files directly.  
+   - For dynamic requests, forwards to the **application server**.
+
+5. **Application server** runs your code, processes logic, and if needed, queries the **MySQL database**.
+
+6. **MySQL database** stores website data and returns requested info.
+
+7. **Application server** builds the response and passes it back to Nginx.
+
+8. **Nginx** sends the final response to the user’s browser to render the website.
+
+---
+
+## Key Concepts & Roles
+
+- **Server:** The machine (physical or virtual) hosting your entire website infrastructure.  
+- **Domain Name:** Human-friendly address (`foobar.com`) that users type instead of IPs.  
+- **DNS Record (www):** An **A record** pointing `www.foobar.com` to IP `8.8.8.8`.  
+- **Web Server (Nginx):** Receives requests, serves static files, forwards dynamic ones to the app server.  
+- **Application Server:** Runs the website code and handles business logic.  
+- **Database (MySQL):** Stores and manages persistent data for the website.  
+- **Communication:** Browser and server communicate over **HTTP/HTTPS** protocols.
+
+---
+
+## Limitations of This Setup
+
+- **Single Point of Failure (SPOF):** If this one server fails, the entire site goes offline.  
+- **Downtime during Maintenance:** Updating code or restarting services causes the site to be temporarily unavailable.  
+- **No Scalability:** One server can only handle limited traffic; high traffic leads to slowdowns or outages.
+
+---
