@@ -1,0 +1,37 @@
+https://imgur.com/a/QUgHAFv
+
+Scale Up Web Infrastructure for [www.foobar.com](http://www.foobar.com)
+
+Infrastructure Overview
+
+This infrastructure splits the main components — web server, application server, and database — onto separate servers to improve scalability and maintainability. It also uses a HAProxy load balancer cluster for high availability.
+
+Components and Roles
+
+- Load Balancer (HAProxy Cluster):
+  Distributes incoming traffic across multiple web servers. The cluster setup ensures if one load balancer fails, the other takes over (high availability).
+
+- Web Server:
+  Handles incoming HTTP/HTTPS requests, serves static content, and forwards dynamic requests to the application server. Having dedicated web servers offloads this work from the app servers.
+
+- Application Server:
+  Runs the business logic and processes application code. By separating it from the web server, you can scale or update the app server independently.
+
+- Database Server:
+  Dedicated server for the database (e.g., MySQL) storing all persistent data. Separating the database improves performance and security.
+
+
+Why Add These Elements?
+
+- Splitting Components:
+  Improves scalability, fault isolation, and resource management. You can scale web or app servers independently based on demand.
+
+- HAProxy Cluster:
+  Prevents load balancer being a single point of failure (SPOF), ensuring continuous traffic distribution even if one load balancer fails.
+
+- Dedicated Servers:
+  Each server focuses on a single role, reducing resource contention and simplifying maintenance.
+
+Summary
+
+This advanced infrastructure is designed to handle increased traffic by scaling individual components independently and ensuring high availability through load balancer clustering.
