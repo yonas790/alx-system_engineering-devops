@@ -1,0 +1,69 @@
+
+---
+### https://imgur.com/a/3kJmlvC
+
+## Explanation of Components and Their Roles
+
+### Why add these elements?
+
+- **Load Balancer (HAProxy):**  
+  Distributes incoming traffic evenly to multiple web servers to avoid overload and improve availability.
+
+- **Multiple Web Servers (Nginx):**  
+  Handle incoming HTTP requests, serve static files, and forward dynamic requests to application servers. More servers = better handling of traffic.
+
+- **Application Servers:**  
+  Run the application code, handle business logic. Having more than one ensures redundancy and scalability.
+
+- **Database Primary-Replica (Master-Slave) Setup:**  
+  The primary (master) database handles all writes. The replica (slave) keeps a copy and serves read requests to balance load and improve performance.
+
+---
+
+## Load Balancer Configuration and Distribution Algorithm
+
+- **Algorithm:** Round-Robin (default)  
+  - The load balancer sends each incoming request to the next server in the list in a circular order.  
+  - Ensures even traffic distribution.
+
+- **Active-Active vs Active-Passive Setup:**  
+  - **Active-Active:** Both load balancers (if more than one) serve traffic simultaneously for high availability.  
+  - **Active-Passive:** One load balancer handles all traffic while the other stands by as a backup, taking over if the first fails.  
+  - *In this setup, we assume a single HAProxy, so it is an Active-Active style by distributing load to multiple web servers.*
+
+---
+
+## Database Primary-Replica Cluster
+
+- **Primary Node:**  
+  Handles all **write** operations (INSERT, UPDATE, DELETE). The application sends data changes here.
+
+- **Replica Node:**  
+  Handles **read** operations (SELECT) by syncing data from the primary asynchronously. Reduces load on primary.
+
+- **Difference in Application Context:**  
+  The application must direct **write requests to the primary** and **read requests to the replica** for better performance and scalability.
+
+---
+
+## Issues with This Infrastructure
+
+- **Single Points of Failure (SPOF):**  
+  - Load balancer is a SPOF unless you deploy a secondary one for failover.  
+  - Primary database is a SPOF; if it goes down, writes cannot happen.  
+  - Web servers and application servers add redundancy but no automatic failover shown here.
+
+- **Security Issues:**  
+  - No firewall protecting servers.  
+  - No HTTPS configured → traffic is not encrypted, risking data interception.
+
+- **No Monitoring:**  
+  - No tools in place to watch server health, traffic spikes, errors, or performance degradation.
+
+---
+
+## Summary
+
+This three-server distributed setup improves availability, performance, and scalability compared to a single server setup but still requires improvements in redundancy, security, and monitoring for production readiness.
+
+---
